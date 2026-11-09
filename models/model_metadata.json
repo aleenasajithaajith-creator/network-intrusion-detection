@@ -1,0 +1,24 @@
+{
+    "num_features": 66,
+    "classes": [
+        "BENIGN",
+        "Bot",
+        "DDoS",
+        "DoS GoldenEye",
+        "DoS Hulk",
+        "DoS Slowhttptest",
+        "DoS slowloris",
+        "FTP-Patator",
+        "Infiltration",
+        "PortScan",
+        "SSH-Patator",
+        "Web Attack"
+    ],
+    "model_type": "LGBMClassifier",
+    "evaluation_summary": {
+        "benchmark_dataset": "CICIDS2017",
+        "target_classes": 12,
+        "primary_metric": "Macro F1-Score",
+        "imbalance_strategy": "Cost-sensitive class_weight=balanced"
+    }
+}
