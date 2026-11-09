@@ -2,7 +2,7 @@
 
 Author: Aleena S Ajith  
 Dataset: CICIDS2017  
-Status: In Progress (Day 1 - Data Cleaning Complete)
+Status: In Progress (Day 1 - Data Cleaning, EDA, and Preprocessing Complete)
 
 ---
 
@@ -11,26 +11,30 @@ The objective of this project is to develop a supervised machine learning classi
 
 ---
 
-## Day 1 Milestone: Data Cleaning and Preprocessing (Task 1)
+## Day 1 Milestones
 
-All data preprocessing steps were executed and verified in Google Colab:
+All tasks were executed, verified, and saved in Google Colab:
 
-1. Dataset Ingestion and Memory Optimization:
-   - Extracted all 8 raw CSV files of CICIDS2017 and combined them into a master dataframe (2,830,743 rows and 79 columns).
-   - Downcasted float64 features to float32 to reduce memory usage in Google Colab.
+### 1. Data Cleaning and Ingestion
+- Extracted and combined all 8 raw CSV files of CICIDS2017 into a single dataframe (2,830,743 rows and 79 columns).
+- Downcasted float64 features to float32 to optimize memory in Google Colab.
+- Replaced infinite values caused by zero-duration division with NaN and removed 2,867 corrupted rows.
+- Standardized target attack labels into 12 clean multiclass categories.
+- Removed 8 constant columns with zero variance (Bwd PSH Flags, Bwd URG Flags, etc.).
+- Removed 329,691 duplicate rows and filtered out negative flow duration values.
+- Cleaned dataset shape: 2,498,078 rows and 71 columns.
 
-2. Handling Infinite and Missing Values:
-   - Handled division-by-zero values in flow rates by replacing infinite values with NaN.
-   - Removed 2,867 rows with missing or corrupted values.
+### 2. Exploratory Data Analysis (EDA)
+- Plotted the distribution of the 12 traffic classes on a logarithmic scale to account for class imbalance (BENIGN vs minority attacks).
+- Inspected data types: verified 70 numerical features and 1 categorical target column.
+- Performed outlier detection across the three pillars of network traffic (Size: Packet Length Mean, Volume: Total Forward Packets, Time: Flow Duration) using boxplots.
+- Generated a correlation heatmap for key network flow features to analyze bivariate relationships.
 
-3. Label Consolidation to 12 Multiclass Categories:
-   - Grouped rare web attacks (Sql Injection, XSS, Brute Force) into a single Web Attack class.
-   - Merged Heartbleed (11 instances) into Infiltration.
-   - Standardized target labels into 12 clean classes.
-
-4. Constant Feature Removal:
-   - Dropped 8 zero-variance constant columns (Bwd PSH Flags, Bwd URG Flags, Fwd Avg Bytes/Bulk, etc.) that provided no predictive value.
-   - Final cleaned dataset shape: 2,827,876 rows and 71 columns.
+### 3. Data Preparation for Machine Learning
+- Applied LabelEncoder to map the 12 text classes into integer labels (0 to 11).
+- Separated features (X: 70 columns) and target (y: 1 column).
+- Conducted Stratified Train-Test Split (80% training set: 1,998,462 rows; 20% testing set: 499,616 rows) with stratify=y to preserve class distribution across splits.
+- Applied StandardScaler fitted strictly on X_train and transformed X_test to prevent data snooping.
 
 ---
 
