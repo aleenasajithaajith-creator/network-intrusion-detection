@@ -2,7 +2,7 @@
 
 Author: Aleena S Ajith  
 Dataset: CICIDS2017  
-Status: In Progress (Day 2 - Model Training and 3-Model Comparison Complete)
+Status: In Progress (Day 2 - Model Training, Evaluation, and Pipeline Export Complete)
 
 ---
 
@@ -11,7 +11,7 @@ The objective of this project is to develop a supervised machine learning classi
 
 ---
 
-## Day 1 Milestones (Completed)
+## Day 1 Milestones (Data Preprocessing and EDA)
 
 1. Data Cleaning and Ingestion:
    - Extracted all 8 raw CSV files of CICIDS2017 (2,830,743 rows and 79 columns).
@@ -35,34 +35,38 @@ The objective of this project is to develop a supervised machine learning classi
 
 ---
 
-## Day 2 Milestones: Supervised Model Training and Comparison
+## Day 2 Milestones: Supervised Model Training, Evaluation, and Model Export
 
-We trained and compared three supervised machine learning algorithms using cost-sensitive learning (class_weight='balanced') to address class imbalance without creating synthetic noise:
+### 1. 3-Model Training and Comparison
+We trained and compared three supervised learning algorithms using cost-sensitive learning (class_weight='balanced') to handle class imbalance:
+- **Decision Tree Classifier (Baseline):** Accuracy: 98.19% | Macro F1-Score: 82.08%
+- **Random Forest Classifier (Bagging Ensemble):** Accuracy: 99.27% | Macro F1-Score: 90.04% (Winner / Champion Model)
+- **LightGBM Classifier (Gradient Boosting):** Accuracy: 95.24% | Macro F1-Score: 59.75% (Over-penalized minority classes on extreme 1:40,000 imbalance ratio)
 
-1. Model 1: Decision Tree Classifier (Baseline)
-   - Rule-based single decision tree with max_depth=15.
-   - Evaluated as a baseline benchmark.
-   - Results: Accuracy: 98.19% | Macro F1-Score: 82.08%
+### 2. In-Depth Evaluation of Champion Model (Random Forest)
+Evaluated on the unseen test set of 499,616 network flows:
+- Overall Accuracy: 99.27%
+- Macro-Averaged Recall: 96.70%
+- Macro-Averaged F1-Score: 90.04%
+- Per-Class Detection Highlights:
+  - FTP-Patator: 100.00% precision, 100.00% recall
+  - DDoS: 100.00% precision, 99.95% recall
+  - DoS Hulk: 99.05% precision, 99.87% recall
+  - PortScan: 98.90% precision, 99.92% recall
+  - Web Attack: 79.00% precision, 99.07% recall
+  - Infiltration: 100.00% precision, 66.67% recall (6 out of 9 stealth attacks caught with 0 false alarms)
 
-2. Model 2: Random Forest Classifier (Bagging Ensemble)
-   - Ensemble of 50 decision trees trained in parallel with majority voting.
-   - Reduced variance on minority attack classes.
-   - Results: Accuracy: 99.27% | Macro F1-Score: 90.04%
+### 3. Feature Importance Analysis
+Identified the top most critical network features driving attack detection:
+1. Destination Port (Service port targeted by attacks)
+2. Init_Win_bytes_backward (TCP window size revealing automated attack tools)
+3. Fwd Packet Length Max (Differentiating large payloads from probing packets)
+4. Subflow Fwd Bytes
+5. Average Packet Size
 
-3. Model 3: LightGBM Classifier (Gradient Boosting)
-   - Sequential gradient boosted decision trees with histogram binning.
-   - Results: Accuracy: 95.24% | Macro F1-Score: 59.75%
-   - Analysis: In extreme class imbalance (1:40,000 ratio), gradient-based balanced loss over-penalized majority errors and reduced precision on rare classes.
-
-### 3-Model Comparison Summary Table
-
-| Model Name | Accuracy (%) | Macro F1-Score (%) | Verdict |
-| :--- | :--- | :--- | :--- |
-| **Decision Tree (Baseline)** | 98.19% | 82.08% | Baseline Benchmark |
-| **Random Forest (Bagging)** | **99.27%** | **90.04%** | **WINNER / Selected Champion** |
-| **LightGBM (Boosting)** | 95.24% | 59.75% | Over-penalized rare classes |
-
-**Selected Champion Model:** Random Forest Classifier (Accuracy: 99.27%, Macro F1-Score: 90.04%).
+### 4. Model Pipeline Serialization
+Exported the trained Random Forest classifier, fitted StandardScaler, and LabelEncoder into a single deployment file:
+- `models/random_forest_nids_model.joblib` (11.3 MB)
 
 ---
 
@@ -71,8 +75,9 @@ We trained and compared three supervised machine learning algorithms using cost-
 ├── .gitignore
 ├── README.md
 ├── notebooks/
-│   └── 01_CICIDS2017_Data_Cleaning.ipynb  # Contains Data Preprocessing, EDA, and Model Comparison
-├── data/
+│   └── 01_CICIDS2017_Data_Cleaning.ipynb  # End-to-end Preprocessing, EDA, Model Training, and Evaluation
 ├── models/
+│   └── random_forest_nids_model.joblib   # Trained Champion Model Pipeline
+├── data/
 └── app/
 ```

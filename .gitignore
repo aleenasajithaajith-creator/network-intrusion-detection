@@ -41,10 +41,9 @@ data/processed/*
 !data/processed/.gitkeep
 !data/sample_test_flows.csv
 
-# Models (commit only lightweight pipelines, ignore large weights)
-models/*.joblib
+# Models
 models/*.pkl
-!models/model_metadata.json
+!models/random_forest_nids_model.joblib
 
 # Environment variables & secrets
 .env
