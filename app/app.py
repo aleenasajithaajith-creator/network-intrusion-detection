@@ -814,7 +814,13 @@ if curr_step == "upload":
             "05_FTP_Patator_BruteForce.csv": "05_FTP_Patator_BruteForce.csv (FTP Password Brute Force Attack)",
             "07_DoS_GoldenEye_Attack.csv": "07_DoS_GoldenEye_Attack.csv (DoS GoldenEye Keep-Alive Exhaustion)",
             "01_Benign_Normal_Traffic.csv": "01_Benign_Normal_Traffic.csv (25 Flows - 100% Baseline Normal Traffic)",
-            "09_Unlabeled_Live_Capture.csv": "09_Unlabeled_Live_Capture.csv (Raw Unlabeled Live Capture - 70 Features)"
+            "09_Unlabeled_Live_Capture.csv": "09_Unlabeled_Live_Capture.csv (Raw Unlabeled Live Capture - 70 Features)",
+            "10_Botnet_ARES_Attack_Traffic.csv": "10_Botnet_ARES_Attack_Traffic.csv (20 Flows - Botnet Command & Control)",
+            "11_DoS_Slowloris_Attack_Traffic.csv": "11_DoS_Slowloris_Attack_Traffic.csv (20 Flows - DoS Slowloris Attack)",
+            "12_DoS_Slowhttptest_Traffic.csv": "12_DoS_Slowhttptest_Traffic.csv (20 Flows - DoS Slowhttptest Attack)",
+            "13_Web_Attack_SQL_Injection.csv": "13_Web_Attack_SQL_Injection.csv (20 Flows - Web Attack / SQL Injection)",
+            "14_Infiltration_Attack_Traffic.csv": "14_Infiltration_Attack_Traffic.csv (10 Flows - Infiltration & Privilege Escalation)",
+            "15_High_Volume_Enterprise_Traffic.csv": "15_High_Volume_Enterprise_Traffic.csv (100 Flows - Enterprise Traffic Mixture)"
         }
         
         selected_preset = st.selectbox(
