@@ -16,11 +16,21 @@
 
 **NETGUARD AI** is an intelligent, automated Network Intrusion Detection System (NIDS) designed to classify complex network traffic flows into 12 distinct categories (Normal traffic plus 11 targeted cyber attack types). Built on the industry-standard **CICIDS2017** benchmark, it combines high-dimensional feature preprocessing, cost-sensitive algorithmic weighting, and an ensemble Random Forest architecture deployed into an interactive Streamlit Security Operations Center (SOC) dashboard.
 
-### Streamlit Security Operations Center (SOC) Interface
-![NETGUARD AI Streamlit SOC Dashboard](assets/streamlit_soc_dashboard.jpg)
+### 1. Ingestion & Schema Verification
+Upload captured network flow CSV files and automatically verify feature alignment across all 70 required statistical metrics.
+![Upload Network Traffic Dataset](assets/01_dataset_upload.jpg)
 
-### Batch Traffic Analysis & Live Threat Triage
-![NETGUARD AI Batch Analysis and Table Filter](assets/streamlit_batch_analysis.jpg)
+### 2. Threat Intelligence & Flow Analytics Dashboard
+Instant executive summary displaying detected threat ratios, confidence metrics, traffic distribution donut charts, and attack category breakdowns.
+![Threat Intelligence Summary Dashboard](assets/02_threat_intelligence_dashboard.jpg)
+
+### 3. SOC Cyber Table & Traffic Filtering
+Interactive telemetry table displaying Flow IDs, Predicted Class, Confidence Scores, Severity Badges, and Synthesized Source/Destination IPs.
+![SOC Cyber Table and Threat Filtering](assets/03_soc_cyber_table.jpg)
+
+### 4. Compliance Audit & PDF Incident Report Export
+Generate audit-ready SOC incident reports with executive summaries, threat vector breakdowns, and mitigation actions, alongside enriched CSV downloads.
+![Compliance Audit and PDF Incident Report Export](assets/04_compliance_and_reports.jpg)
 
 ---
 
@@ -76,8 +86,10 @@ The complete end-to-end machine learning and deployment workflow is depicted in 
 ├── run_netguard.bat                       # One-click desktop launcher for Streamlit app
 ├── verify_app.py                          # 7-stage automated verification suite
 ├── assets/                                # UI screenshots and architectural diagrams
-│   ├── streamlit_soc_dashboard.jpg
-│   ├── streamlit_batch_analysis.jpg
+│   ├── 01_dataset_upload.jpg
+│   ├── 02_threat_intelligence_dashboard.jpg
+│   ├── 03_soc_cyber_table.jpg
+│   ├── 04_compliance_and_reports.jpg
 │   ├── system_architecture.jpg
 │   ├── confusion_matrix.png
 │   └── feature_importance.png
